@@ -163,6 +163,8 @@ class TreeGUI:
         # Display node info
         leaves = self.current_tree.find_leaf_nodes()
         parents = self.current_tree.find_parent_nodes()
+        parents_one = self.current_tree.find_parents_with_one_child()
+        parents_two = self.current_tree.find_parents_with_two_children()
         
         if hasattr(self.current_tree.root, 'key'):
             root_key = self.current_tree.root.key
@@ -174,6 +176,8 @@ class TreeGUI:
         self.log(f"\nRoot Node: {root_key}")
         self.log(f"Leaf Nodes ({len(leaves)}): {sorted(leaves)[:20]}{'...' if len(leaves) > 20 else ''}")
         self.log(f"Parent Nodes ({len(parents)}): {sorted(parents)[:20]}{'...' if len(parents) > 20 else ''}")
+        self.log(f"  - Parents with 1 child ({len(parents_one)}): {sorted(parents_one)[:20]}{'...' if len(parents_one) > 20 else ''}")
+        self.log(f"  - Parents with 2 children ({len(parents_two)}): {sorted(parents_two)[:20]}{'...' if len(parents_two) > 20 else ''}")
         
         # Store timing info
         self.insert_time = insert_time
@@ -225,8 +229,12 @@ class TreeGUI:
             # Update node info
             leaves = self.current_tree.find_leaf_nodes()
             parents = self.current_tree.find_parent_nodes()
+            parents_one = self.current_tree.find_parents_with_one_child()
+            parents_two = self.current_tree.find_parents_with_two_children()
             self.log(f"Remaining leaf nodes: {len(leaves)}")
             self.log(f"Remaining parent nodes: {len(parents)}")
+            self.log(f"  - Parents with 1 child: {len(parents_one)}")
+            self.log(f"  - Parents with 2 children: {len(parents_two)}")
         else:
             self.log("Deletion failed!")
     
@@ -326,6 +334,8 @@ class TreeGUI:
         # File 3: Node information
         leaves = self.current_tree.find_leaf_nodes()
         parents = self.current_tree.find_parent_nodes()
+        parents_one = self.current_tree.find_parents_with_one_child()
+        parents_two = self.current_tree.find_parents_with_two_children()
         
         if hasattr(self.current_tree.root, 'key'):
             root_key = self.current_tree.root.key
@@ -342,6 +352,10 @@ class TreeGUI:
             f.write(f"{sorted(leaves)}\n\n")
             f.write(f"PARENT NODES ({len(parents)}):\n")
             f.write(f"{sorted(parents)}\n\n")
+            f.write(f"PARENT NODES WITH 1 CHILD ({len(parents_one)}):\n")
+            f.write(f"{sorted(parents_one)}\n\n")
+            f.write(f"PARENT NODES WITH 2 CHILDREN ({len(parents_two)}):\n")
+            f.write(f"{sorted(parents_two)}\n\n")
             f.write("\nOperations Log:\n")
             f.write(self.info_text.get(1.0, tk.END))
         
