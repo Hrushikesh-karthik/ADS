@@ -1,296 +1,115 @@
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                         TREE SIMULATOR - VISUAL GUIDE                        ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+# Tree Simulator
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                              FILE STRUCTURE                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+A comprehensive tree data structure simulator supporting:
+- Binary Search Trees (BST)
+- Red-Black Trees
+- AVL Trees
+- Splay Trees
+- 2-3 Trees
 
-📁 Tree Simulator Project
-│
-├── 🐍 CORE PYTHON FILES
-│   ├── tree_simulator.py    ⭐ Main tree implementations (BST, RB, AVL, Splay, 2-3)
-│   ├── tree_gui.py          🖥️  GUI interface with tkinter
-│   └── test_trees.py        🧪 Automated testing suite
-│
-├── 📚 DOCUMENTATION
-│   ├── README.md            📖 Project overview
-│   ├── QUICKSTART.md        🚀 Quick start guide
-│   ├── DOCUMENTATION.md     📋 Complete technical docs
-│   ├── PROJECT_SUMMARY.md   📊 Project summary
-│   ├── TREE_COMPARISON.md   ⚖️  Tree comparison guide
-│   └── VISUAL_GUIDE.txt     👁️  This file
-│
-└── 🛠️  UTILITIES
-    ├── requirements.txt     📦 Dependencies (none needed!)
-    └── run_gui.bat         ▶️  Windows launcher
+## Features
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                           TREE TYPES AVAILABLE                               │
-└──────────────────────────────────────────────────────────────────────────────┘
+- Visual GUI for tree operations
+- Three predefined test cases:
+  - Case 1: 100 random nodes
+  - Case 2: 1000 nodes (500 increasing + 500 random)
+  - Case 3: 1000 nodes (500 random + 500 decreasing)
+- Custom input support
+- Timing analysis for insertions and deletions
+- Node classification (leaf, parent, root)
+- Export to text files
 
-1. 🌳 BINARY SEARCH TREE (BST)
-   └── Simple, unbalanced
-   └── Good for: Learning, random data
+## Installation
 
-2. 🔴⚫ RED-BLACK TREE
-   └── Self-balancing with colors
-   └── Good for: General purpose, production
+```bash
+pip install tkinter
+```
 
-3. ⚖️  AVL TREE
-   └── Height-balanced
-   └── Good for: Lookup-heavy workloads
+Note: tkinter usually comes pre-installed with Python
 
-4. 🔄 SPLAY TREE
-   └── Self-adjusting
-   └── Good for: Caching, locality of reference
+## Usage
 
-5. 2️⃣3️⃣ 2-3 TREE
-   └── Multi-key nodes
-   └── Good for: Perfect balance, learning B-trees
+### Run the GUI:
+```bash
+python tree_gui.py
+```
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                            HOW TO GET STARTED                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+### GUI Operations:
 
-OPTION 1: GUI (Recommended) 🖥️
-┌────────────────────────────────────┐
-│  python tree_gui.py                │
-│  OR                                │
-│  run_gui.bat (Windows)             │
-└────────────────────────────────────┘
+1. **Select Tree Type**: Choose from BST, Red-Black, AVL, Splay, or 2-3 Tree
+2. **Load Test Case**: Select one of the predefined cases or enter custom data
+3. **Build Tree**: Constructs the tree and displays timing information
+4. **Delete Operations**:
+   - Delete Leaf Node: Remove a node with no children
+   - Delete Parent (1 Child): Remove a node with one child
+   - Delete Parent (2 Children): Remove a node with two children
+5. **Save to Files**: Export tree structure, timing info, and node information
 
-OPTION 2: Command Line 💻
-┌────────────────────────────────────┐
-│  python test_trees.py              │
-└────────────────────────────────────┘
+### Output Files:
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                              GUI LAYOUT                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+- `tree_structure.txt`: Visual representation of the tree
+- `timing_info.txt`: Insertion and deletion timing data
+- `node_info.txt`: Root, leaf, and parent node information with operation logs
 
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                          TREE SIMULATOR GUI                                  ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║ Select Tree Type:                                                            ║
-║  ⚪ BST  ⚪ Red-Black  ⚪ AVL  ⚪ Splay  ⚪ 2-3                                ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║ Select Test Case:                                                            ║
-║  [Case 1: 100 Random] [Case 2: 1000 Mixed] [Case 3: 1000 Mixed] [Custom]   ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║ Operations:                                                                  ║
-║  [Build Tree] [Delete Leaf] [Delete Parent 1] [Delete Parent 2] [Save]     ║
-╠═══════════════════════════════════╦══════════════════════════════════════════╣
-║  TREE STRUCTURE                   ║  INFORMATION & LOGS                      ║
-║                                   ║                                          ║
-║  └── 50                           ║  Tree Simulator Ready!                   ║
-║      ├── 30                       ║  Loaded Case 1: 100 numbers              ║
-║      │   ├── 20                   ║  Building BST...                         ║
-║      │   │   ├── 10               ║  Insertion completed in 0.000123s        ║
-║      │   │   └── 25               ║                                          ║
-║      │   └── 40                   ║  Root Node: 50                           ║
-║      │       ├── 35               ║  Leaf Nodes: [10, 25, 35, 45, 60, 80]  ║
-║      │       └── 45               ║  Parent Nodes: [20, 30, 40, 50, 70]    ║
-║      └── 70                       ║                                          ║
-║          ├── 60                   ║  Operation: DELETE LEAF NODE             ║
-║          └── 80                   ║  Node to delete: 10                      ║
-║                                   ║  Deletion completed in 0.00000089s       ║
-║  [Scrollable]                     ║  [Scrollable]                            ║
-╚═══════════════════════════════════╩══════════════════════════════════════════╝
+## Example
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                            TEST CASES EXPLAINED                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+```python
+from tree_simulator import BST, generate_test_cases
 
-📊 CASE 1: 100 Random Nodes
-   ├── Size: 100 numbers
-   ├── Pattern: Random (1-1000)
-   ├── Purpose: Quick visualization
-   └── Best for: Understanding tree structure
+# Create a BST
+tree = BST()
 
-📊 CASE 2: 1000 Nodes (500 Inc + 500 Random)
-   ├── Size: 1000 numbers
-   ├── Pattern: First 500 increasing, next 500 random
-   ├── Purpose: Test with ordered data
-   └── Best for: Seeing balancing in action
+# Generate test data
+case1, case2, case3 = generate_test_cases()
 
-📊 CASE 3: 1000 Nodes (500 Random + 500 Dec)
-   ├── Size: 1000 numbers
-   ├── Pattern: First 500 random, next 500 decreasing
-   ├── Purpose: Test with reverse-ordered data
-   └── Best for: Stress testing balance
+# Insert nodes
+for key in case1:
+    tree.insert(key)
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                           OUTPUT FILES GENERATED                             │
-└──────────────────────────────────────────────────────────────────────────────┘
+# Print tree structure
+print(tree.to_string())
 
-After clicking "Save to Files", you get:
+# Delete a node
+tree.delete(50)
+```
 
-📄 tree_structure.txt
-   ├── Visual ASCII representation
-   ├── Shows parent-child relationships
-   └── Includes tree-specific info (heights, colors)
+## Tree Implementations
 
-📄 timing_info.txt
-   ├── Total insertion time
-   ├── Average time per node
-   └── Deletion times
+### Binary Search Tree (BST)
+- Basic binary tree with left < parent < right property
+- No balancing
 
-📄 node_info.txt
-   ├── Root node
-   ├── All leaf nodes
-   ├── All parent nodes
-   └── Complete operation log
+### Red-Black Tree
+- Self-balancing BST
+- Each node has a color (red or black)
+- Maintains balance through color properties and rotations
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                          EXAMPLE TREE OUTPUTS                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+### AVL Tree
+- Self-balancing BST
+- Maintains height balance factor of -1, 0, or 1
+- Uses rotations to maintain balance
 
-BST (Binary Search Tree):
-└── 50
-    ├── 30
-    │   ├── 20
-    │   └── 40
-    └── 70
-        ├── 60
-        └── 80
+### Splay Tree
+- Self-adjusting BST
+- Recently accessed elements are quick to access again
+- Uses splaying operation to move nodes to root
 
-AVL Tree (with heights):
-└── 50(h=3)
-    ├── 30(h=2)
-    │   ├── 20(h=1)
-    │   └── 40(h=1)
-    └── 70(h=2)
-        ├── 60(h=1)
-        └── 80(h=1)
+### 2-3 Tree
+- Each node can have 1-2 keys and 2-3 children
+- Always balanced
+- All leaves at same level
 
-Red-Black Tree (with colors):
-└── 50(B)
-    ├── 30(R)
-    │   ├── 20(B)
-    │   └── 40(B)
-    └── 70(B)
-        ├── 60(R)
-        └── 80(R)
+## Performance Analysis
 
-2-3 Tree (with multiple keys):
-└── [50]
-    ├── [20, 30]
-    └── [70, 80]
+The program measures:
+- Total insertion time for all nodes
+- Average insertion time per node
+- Deletion time for different node types
+- Tree height and structure
 
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                            OPERATION WORKFLOW                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+## Notes
 
-STEP 1: Select Tree Type
-   ↓
-STEP 2: Load Test Data
-   ↓
-STEP 3: Build Tree
-   ↓
-STEP 4: View Structure & Info
-   ↓
-STEP 5: Perform Deletions (optional)
-   ↓
-STEP 6: Save to Files
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                         DELETION OPERATIONS                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-🍃 DELETE LEAF NODE
-   └── Node with no children
-   └── Example: 10, 25, 35, 45, 60, 80
-
-🌿 DELETE PARENT (1 CHILD)
-   └── Node with exactly one child
-   └── Example: Node 20 with only left child
-
-🌳 DELETE PARENT (2 CHILDREN)
-   └── Node with two children
-   └── Example: Node 30 with both left and right children
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                          PERFORMANCE METRICS                                 │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-Measured for each operation:
-├── ⏱️  Total time (seconds)
-├── 📊 Average time per node
-├── 🔢 Number of nodes
-└── 📈 Operation type
-
-Example Output:
-┌────────────────────────────────────┐
-│ Insertion Time: 0.012345 seconds   │
-│ Average: 0.00001235 seconds/node   │
-│ Deletion Time: 0.00000089 seconds  │
-└────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                            QUICK REFERENCE                                   │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-COMMANDS:
-  python tree_gui.py          → Launch GUI
-  python test_trees.py        → Run tests
-  run_gui.bat                 → Windows launcher
-
-DOCUMENTATION:
-  README.md                   → Start here
-  QUICKSTART.md               → Step-by-step guide
-  DOCUMENTATION.md            → Full technical docs
-  TREE_COMPARISON.md          → Compare tree types
-  PROJECT_SUMMARY.md          → Project overview
-
-TREE TYPES:
-  BST         → Simple, unbalanced
-  Red-Black   → Balanced, production-ready
-  AVL         → Strictly balanced, fast search
-  Splay       → Self-adjusting, good for caching
-  2-3         → Perfect balance, multi-key nodes
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                              TIPS & TRICKS                                   │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-💡 Start with Case 1 (100 nodes) for clear visualization
-💡 Use Case 2 or 3 for performance analysis
-💡 Check the info panel for available leaf nodes before deletion
-💡 Save to files after each major operation
-💡 Compare different tree types with same data
-💡 Use custom input for specific test scenarios
-💡 Read TREE_COMPARISON.md to choose the right tree
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                           TROUBLESHOOTING                                    │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-❓ GUI doesn't open?
-   → Check if Python and tkinter are installed
-
-❓ Tree looks unbalanced?
-   → You might be using BST (doesn't self-balance)
-
-❓ Deletion fails?
-   → Ensure the node exists and is the correct type
-
-❓ Can't see full tree?
-   → Use scroll bars or check output files
-
-❓ Want to compare trees?
-   → Build same data in different tree types
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                              ENJOY! 🎉                                       │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-This simulator helps you:
-✅ Learn tree data structures
-✅ Visualize tree operations
-✅ Compare performance
-✅ Understand balancing algorithms
-✅ Prepare for interviews
-✅ Complete academic projects
-
-Happy tree building! 🌳
+- 2-3 Tree deletion is simplified in this implementation
+- Red-Black Tree uses a simplified implementation
+- All trees support the basic operations: insert, delete, search
+- Tree visualization uses ASCII art for clarity
