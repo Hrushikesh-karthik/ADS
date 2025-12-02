@@ -96,6 +96,53 @@ class Tree(ABC):
                 parents.append(node.key)
             self._find_parents(node.left, parents)
             self._find_parents(node.right, parents)
+    
+    def find_parents_with_one_child(self):
+        """Find all parent nodes with exactly one child"""
+        parents_one = []
+        self._find_parents_one(self.root, parents_one)
+        return parents_one
+    
+    def _find_parents_one(self, node, parents_one):
+        if node is None:
+            return
+        if hasattr(node, 'left') and hasattr(node, 'right'):
+            # Binary tree node
+            if (node.left is None and node.right is not None) or \
+               (node.left is not None and node.right is None):
+                parents_one.append(node.key)
+            self._find_parents_one(node.left, parents_one)
+            self._find_parents_one(node.right, parents_one)
+        elif hasattr(node, 'children'):
+            # 2-3 tree node - count non-None children
+            non_none_children = [c for c in node.children if c is not None]
+            if len(non_none_children) == 1:
+                parents_one.extend(node.keys)
+            for child in node.children:
+                self._find_parents_one(child, parents_one)
+    
+    def find_parents_with_two_children(self):
+        """Find all parent nodes with exactly two children"""
+        parents_two = []
+        self._find_parents_two(self.root, parents_two)
+        return parents_two
+    
+    def _find_parents_two(self, node, parents_two):
+        if node is None:
+            return
+        if hasattr(node, 'left') and hasattr(node, 'right'):
+            # Binary tree node
+            if node.left is not None and node.right is not None:
+                parents_two.append(node.key)
+            self._find_parents_two(node.left, parents_two)
+            self._find_parents_two(node.right, parents_two)
+        elif hasattr(node, 'children'):
+            # 2-3 tree node - count non-None children
+            non_none_children = [c for c in node.children if c is not None]
+            if len(non_none_children) == 2:
+                parents_two.extend(node.keys)
+            for child in node.children:
+                self._find_parents_two(child, parents_two)
 
 # Binary Search Tree
 class BST(Tree):
